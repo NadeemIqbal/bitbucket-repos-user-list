@@ -1,4 +1,4 @@
-# Multi-Platform Repository Inspector
+# Multi-Platform Repository Permission Inspector
 
 A collection of Python scripts that fetch all repositories where you have admin access across multiple repository management platforms, along with users who have direct permissions on each repository.
 
@@ -295,7 +295,7 @@ Finished. Total repositories with admin access: 2
 $ python multi_platform_inspector.py
 ```
 ```
-Multi-Platform Repository Inspector
+Multi-Platform Repository Permission Inspector
 ========================================
 Started at: 2024-01-15 10:30:00
 
@@ -351,7 +351,7 @@ Completed at: 2024-01-15 10:30:45
 $ python multi_platform_inspector.py
 ```
 ```
-Multi-Platform Repository Inspector
+Multi-Platform Repository Permission Inspector
 ========================================
 Started at: 2024-01-15 10:30:00
 

@@ -1,10 +1,10 @@
-# Bitbucket Admin Repository Inspector
+# Repository Permission Inspector
 
 A Python script that fetches all Bitbucket Cloud repositories where you are an admin, across all workspaces you belong to. It also lists users with direct permissions on each repository, along with their roles (`admin`, `write`, or `read`).
 
 ## Multi-Platform Version
 
-**Looking for support for other repository management platforms?** Check out our [Multi-Platform Repository Inspector](README_MULTI_PLATFORM.md) which supports:
+**Looking for support for other repository management platforms?** Check out our [Multi-Platform Repository Permission Inspector](README_MULTI_PLATFORM.md) which supports:
 
 - **GitHub** - Personal and organization repositories
 - **GitLab** - Personal projects and group projects  

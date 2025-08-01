@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Multi-Platform Repository Inspector
+Multi-Platform Repository Permission Inspector
 ==================================
 
 A unified script that inspects repositories across multiple platforms:
@@ -655,7 +655,7 @@ def export_to_json(data, filename):
 
 def main():
     """Main function to run all platform inspectors"""
-    parser = argparse.ArgumentParser(description='Multi-Platform Repository Inspector')
+    parser = argparse.ArgumentParser(description='Multi-Platform Repository Permission Inspector')
     parser.add_argument('--csv', help='Export results to CSV file')
     parser.add_argument('--json', help='Export results to JSON file')
     parser.add_argument('--quiet', action='store_true', help='Suppress console output')
@@ -663,7 +663,7 @@ def main():
     args = parser.parse_args()
     
     if not args.quiet:
-        print("Multi-Platform Repository Inspector")
+        print("Multi-Platform Repository Permission Inspector")
         print("=" * 40)
         print(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print()

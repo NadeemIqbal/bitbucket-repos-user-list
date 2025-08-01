@@ -215,7 +215,7 @@ def export_to_json(data, filename):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Azure DevOps Repository Inspector')
+    parser = argparse.ArgumentParser(description='Azure DevOps Repository Permission Inspector')
     parser.add_argument('--csv', help='Export results to CSV file')
     parser.add_argument('--json', help='Export results to JSON file')
     parser.add_argument('--quiet', action='store_true', help='Suppress console output')
