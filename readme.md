@@ -2,6 +2,17 @@
 
 A Python script that fetches all Bitbucket Cloud repositories where you are an admin, across all workspaces you belong to. It also lists users with direct permissions on each repository, along with their roles (`admin`, `write`, or `read`).
 
+## Multi-Platform Version
+
+**Looking for support for other repository management platforms?** Check out our [Multi-Platform Repository Inspector](README_MULTI_PLATFORM.md) which supports:
+
+- **GitHub** - Personal and organization repositories
+- **GitLab** - Personal projects and group projects  
+- **Azure DevOps** - Organization projects and repositories
+- **Bitbucket Cloud** - Workspaces and repositories
+
+The multi-platform version includes CSV/JSON export functionality and can inspect all platforms simultaneously.
+
 ## Problem Statement
 
 Managing access permissions across multiple Bitbucket repositories can be extremely time-consuming and error-prone. When you have tens or hundreds of repositories, manually checking which users have access to which repositories and at what permission level becomes a daunting task.
