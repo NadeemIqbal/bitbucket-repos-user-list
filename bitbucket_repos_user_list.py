@@ -1,5 +1,8 @@
 import os
 import sys
+import json
+import csv
+import argparse
 import requests
 from requests.auth import HTTPBasicAuth
 from dotenv import load_dotenv
@@ -86,26 +89,87 @@ def get_repo_users(workspace, repo_slug):
     return users
 
 
+def export_to_csv(data, filename):
+    """Export data to CSV format"""
+    with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
+        fieldnames = ['workspace', 'repository', 'username', 'display_name', 'permission']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        
+        writer.writeheader()
+        for repo in data:
+            if repo.get('users'):
+                for user in repo['users']:
+                    writer.writerow({
+                        'workspace': repo['workspace'],
+                        'repository': repo['full_name'],
+                        'username': user['username'],
+                        'display_name': user['display_name'],
+                        'permission': user['permission']
+                    })
+            else:
+                # Write empty row for repositories with no users
+                writer.writerow({
+                    'workspace': repo['workspace'],
+                    'repository': repo['full_name'],
+                    'username': '',
+                    'display_name': '',
+                    'permission': ''
+                })
+    
+    print(f"Data exported to {filename}")
+
+
+def export_to_json(data, filename):
+    """Export data to JSON format"""
+    with open(filename, 'w', encoding='utf-8') as jsonfile:
+        json.dump(data, jsonfile, indent=2, ensure_ascii=False)
+    
+    print(f"Data exported to {filename}")
+
+
 if __name__ == '__main__':
-    print("Fetching workspaces...")
+    parser = argparse.ArgumentParser(description='Bitbucket Repository Inspector')
+    parser.add_argument('--csv', help='Export results to CSV file')
+    parser.add_argument('--json', help='Export results to JSON file')
+    parser.add_argument('--quiet', action='store_true', help='Suppress console output')
+    
+    args = parser.parse_args()
+    
+    if not args.quiet:
+        print("Fetching workspaces...")
     workspaces = get_workspaces()
 
     all_repo_data = []
 
     for ws in workspaces:
-        print(f"\nWorkspace: {ws}")
+        if not args.quiet:
+            print(f"\nWorkspace: {ws}")
         repos = get_admin_repos(ws)
         for repo in repos:
-            print(f"Repo: {repo['full_name']}")
+            if not args.quiet:
+                print(f"Repo: {repo['full_name']}")
             users = get_repo_users(ws, repo['slug'])
-            if not users:
-                print("   No direct user permissions found.")
-            else:
-                for u in users:
-                    print(f"   {u['display_name']} ({u['username']}) - {u['permission']}")
-            all_repo_data.append({
-                'repo': repo['full_name'],
+            if not args.quiet:
+                if not users:
+                    print("   No direct user permissions found.")
+                else:
+                    for u in users:
+                        print(f"   {u['display_name']} ({u['username']}) - {u['permission']}")
+            
+            repo_data = {
+                'workspace': ws,
+                'slug': repo['slug'],
+                'full_name': repo['full_name'],
                 'users': users
-            })
+            }
+            all_repo_data.append(repo_data)
 
-    print("\nFinished. Total repositories checked:", len(all_repo_data))
+    if not args.quiet:
+        print(f"\nFinished. Total repositories checked: {len(all_repo_data)}")
+    
+    # Export data if requested
+    if args.csv:
+        export_to_csv(all_repo_data, args.csv)
+    
+    if args.json:
+        export_to_json(all_repo_data, args.json)
